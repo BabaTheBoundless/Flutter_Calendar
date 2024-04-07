@@ -70,9 +70,10 @@ class _CalendarPageState extends State<CalendarPage> {
         calendarStyle: CalendarStyle(
           selectedDecoration: BoxDecoration(
             color: Theme.of(context).primaryColor,
-            //i want to get a square instead of a rectangle (current day isn't changed yet)
-            shape: BoxShape.rectangle,
+            //change to square at some point
+            shape: BoxShape.circle,
           ),
+
           //don't think i want to keep the amber color but we shall see
           selectedTextStyle: TextStyle(color: Colors.amber),
         ),
