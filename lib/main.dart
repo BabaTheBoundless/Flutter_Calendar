@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+//needed for linking to url
 import 'package:url_launcher/url_launcher.dart';
+//font icon package i found; should have github logo
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 /* need to add some fast way to go through the months and years.
 
@@ -108,8 +111,9 @@ class _CalendarPageState extends State<CalendarPage> {
             label: 'Calendar',
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.local_gas_station_rounded),
-              label: 'testing testing'),
+            icon: FaIcon(FontAwesomeIcons.github),
+            label: 'Github',
+          ),
         ],
         currentIndex: _currentIndex,
         onTap: _itemTapped,

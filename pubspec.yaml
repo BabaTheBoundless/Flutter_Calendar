@@ -32,6 +32,7 @@ dependencies:
   flutter:
     sdk: flutter
   url_launcher: ^6.0.6
+  font_awesome_flutter: ^10.7.0
     
 
 
