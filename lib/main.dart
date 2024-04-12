@@ -47,11 +47,11 @@ class _CalendarPageState extends State<CalendarPage> {
       _currentIndex = index;
       //Home button
       if (_currentIndex == 0) {
-        _openGithub();
+        _openURL('https://github.com/BabaTheBoundless/Flutter_Calendar');
       } else if (_currentIndex == 1) {
-        _calendarFormat = CalendarFormat.twoWeeks;
+        _openURL('https://www.pro-football-reference.com');
       } else if (_currentIndex == 2) {
-        _calendarFormat == CalendarFormat.twoWeeks;
+        _openURL('https://theuselessweb.com');
       }
     });
   }
@@ -117,10 +117,10 @@ class _CalendarPageState extends State<CalendarPage> {
     );
   }
 
-  void _openGithub() async {
+  void _openURL(urlLink) async {
     const githubLink = 'https://github.com';
 
-    Uri uriGithubLink = Uri.parse(githubLink);
-    await launchUrl(uriGithubLink);
+    Uri uriLink = Uri.parse(urlLink);
+    await launchUrl(uriLink);
   }
 }
