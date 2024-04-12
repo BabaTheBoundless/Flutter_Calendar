@@ -68,15 +68,16 @@ class _CalendarPageState extends State<CalendarPage> {
           CalendarFormat.month: 'Month',
         },
         calendarStyle: CalendarStyle(
-          selectedDecoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
-            //change to square at some point
-            shape: BoxShape.circle,
-          ),
+            selectedDecoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
+              //change to square at some point
+              shape: BoxShape.circle,
+            ),
 
-          //don't think i want to keep the amber color but we shall see
-          selectedTextStyle: TextStyle(color: Colors.amber),
-        ),
+            //don't think i want to keep the amber color but we shall see
+            //also i think i will put some other textstyles here unless i find a better spot to put them
+            selectedTextStyle: TextStyle(color: Colors.amber),
+            todayTextStyle: TextStyle(color: Colors.amber)),
       ),
     );
   }
