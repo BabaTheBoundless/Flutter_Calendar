@@ -18,8 +18,12 @@ class CalendarApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'AAH',
-      theme: ThemeData.dark(),
-      darkTheme: ThemeData.dark(),
+      theme: ThemeData(
+        brightness: Brightness.light,
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+      ),
       themeMode: ThemeMode.system,
       home: CalendarPage(),
     );
@@ -101,6 +105,7 @@ class _CalendarPageState extends State<CalendarPage> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -113,6 +118,10 @@ class _CalendarPageState extends State<CalendarPage> {
           BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.github),
             label: 'Github',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_today),
+            label: 'test',
           ),
         ],
         currentIndex: _currentIndex,
