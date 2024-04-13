@@ -19,8 +19,8 @@ class _CalendarPageState extends State<CalendarPage> {
   late DateTime _focusedDay;
   late DateTime _selectedDay;
   int _currentIndex = 0;
-  final _themeMode = ThemeMode.system;
 
+  ThemeMode _themeMode = ThemeMode.dark;
   @override
   void initState() {
     super.initState();
@@ -34,20 +34,29 @@ class _CalendarPageState extends State<CalendarPage> {
       _currentIndex = index;
       //Home button
       if (_currentIndex == 0) {
-        _openURL('https://github.com/BabaTheBoundless/Flutter_Calendar');
+        _openURL('https://theuselessweb.com');
+        //Calendar button
       } else if (_currentIndex == 1) {
         _openURL('https://www.pro-football-reference.com');
+        //Github button
       } else if (_currentIndex == 2) {
-        _openURL('https://theuselessweb.com');
+        //test button
+        _openURL('https://github.com/BabaTheBoundless/Flutter_Calendar');
       } else if (_currentIndex == 3) {
-        toggleThemeManually();
+        if (_themeMode == ThemeMode.light) {
+          changeTheme(ThemeMode.dark);
+          _openURL('https://www.pro-football-reference.com');
+        } else if (_themeMode == ThemeMode.dark) {
+          changeTheme(ThemeMode.light);
+          _openURL('https://github.com/BabaTheBoundless/Flutter_Calendar');
+        }
       }
     });
   }
 
-  void toggleThemeManually() {
+  void changeTheme(ThemeMode themeMode) {
     setState(() {
-      _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
+      _themeMode = themeMode;
     });
   }
 

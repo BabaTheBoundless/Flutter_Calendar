@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 //font icon package i found; should have github logo
 
 import 'calendar.dart';
+import 'lightVSdark.dart';
 
 /* need to add some fast way to go through the months and years.
 
@@ -16,7 +17,6 @@ class CalendarApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'AAH',
       theme: ThemeData(
         brightness: Brightness.light,
       ),
