@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'dart:convert';
 //needed for linking to url
 import 'package:url_launcher/url_launcher.dart';
 //font icon package i found; should have github logo
@@ -7,6 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'signuppage.dart';
 import 'holidaypage.dart';
+import 'package:http/http.dart' as http;
 
 /* need to add some fast way to go through the months and years.
 
@@ -18,6 +20,7 @@ class CalendarPage extends StatefulWidget {
 }
 
 class _CalendarPageState extends State<CalendarPage> {
+  List<dynamic> _holiday = [];
   late CalendarFormat _calendarFormat;
   late DateTime _focusedDay;
   late DateTime _selectedDay;
@@ -27,6 +30,7 @@ class _CalendarPageState extends State<CalendarPage> {
   @override
   void initState() {
     super.initState();
+
     _calendarFormat = CalendarFormat.month;
     _focusedDay = DateTime.now();
     _selectedDay = DateTime.now();
@@ -90,10 +94,13 @@ class _CalendarPageState extends State<CalendarPage> {
             return isSameDay(_selectedDay, day);
           },
 
-          onDaySelected: (selectedDay, focusedDay) {
+          onDaySelected: (selectedDay, focusedDay) async {
             setState(() {
               _selectedDay = selectedDay;
               _focusedDay = focusedDay;
+              //await fetchHoliday(selectedDay);
+              //print(selectedDay);
+              print(fetchHoliday(_selectedDay));
             });
           },
           availableCalendarFormats: {
@@ -144,5 +151,20 @@ class _CalendarPageState extends State<CalendarPage> {
 
     Uri uriLink = Uri.parse(urlLink);
     await launchUrl(uriLink);
+  }
+
+  Future<void> fetchHoliday(DateTime selectedDay) async {
+    final apiKey = '6ejHzAidPCOiSeD1GyDUsAKSbob0Iwmx';
+    final year = selectedDay.year;
+    final month = selectedDay.month;
+    final day = selectedDay.day;
+    final url = await http.get(Uri.parse(
+        'https://calendarific.com/api/v2/holidays?&api_key=$apiKey&country=US&day=$day&month=$month&year=$year'));
+
+    final Map<String, dynamic> data = json.decode(url.body);
+    setState(() {
+      _holiday = data['response']['holidays'];
+    });
+    print(_holiday);
   }
 }

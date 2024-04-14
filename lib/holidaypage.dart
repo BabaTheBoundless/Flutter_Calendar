@@ -12,6 +12,8 @@ class HolidayPage extends StatefulWidget {
 
 class _HolidayPageState extends State<HolidayPage> {
   List<dynamic> _holidays = [];
+  //might not need a list, but multiple holidays on same day might be possible
+  List<dynamic> _holiday = [];
 
   @override
   void initState() {
@@ -35,7 +37,7 @@ class _HolidayPageState extends State<HolidayPage> {
     print('yo');*/
 
     final url = await http.get(Uri.parse(
-        'https://calendarific.com/api/v2/holidays?&api_key=$apiKey&country=US&year=2019'));
+        'https://calendarific.com/api/v2/holidays?&api_key=$apiKey&country=US&year=$year'));
 
     /* NOTHING BELOW THIS EXECUTES; THIS IS SEEMINGLY THE PROBLEM
     Network connections seems to be fine. Perhaps something is wrong with my apiKey???
@@ -56,6 +58,22 @@ class _HolidayPageState extends State<HolidayPage> {
     } else {
       throw Exception('Failed to get holidays error');
     }
+  }
+
+  //only returns the selected day; will be called in calendar.dart
+  Future<void> fetchHoliday(DateTime selectedDay) async {
+    final apiKey = '6ejHzAidPCOiSeD1GyDUsAKSbob0Iwmx';
+    final year = selectedDay.year;
+    final month = selectedDay.month;
+    final day = selectedDay.day;
+    final url = await http.get(Uri.parse(
+        'https://calendarific.com/api/v2/holidays?&api_key=$apiKey&country=US&day=$day&month=$month&year=$year'));
+
+    final Map<String, dynamic> data = json.decode(url.body);
+    setState(() {
+      _holiday = data['response']['holidays'];
+    });
+    print(_holiday);
   }
 
   @override
