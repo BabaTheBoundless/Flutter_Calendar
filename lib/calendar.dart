@@ -46,7 +46,7 @@ class _CalendarPageState extends State<CalendarPage> {
             context, MaterialPageRoute(builder: (context) => SignUpPage()));
         //_openURL('https://theuselessweb.com');
 
-        //Calendar button
+        //Holidays button
       } else if (_currentIndex == 1) {
         //_openURL('https://www.pro-football-reference.com');
         Navigator.push(
@@ -82,78 +82,92 @@ class _CalendarPageState extends State<CalendarPage> {
       appBar: AppBar(
         title: Text('testing testing 123'),
       ),
-      body: Theme(
-        data: Theme.of(context),
-        child: TableCalendar(
-          //may want to change the earilest start and end date later
-          firstDay: DateTime.utc(2000, 1, 1),
-          lastDay: DateTime.utc(2100, 12, 31),
-          focusedDay: _focusedDay,
-          calendarFormat: _calendarFormat,
-          selectedDayPredicate: (day) {
-            return isSameDay(_selectedDay, day);
-          },
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            child: Theme(
+              data: Theme.of(context),
 
-          onDaySelected: (selectedDay, focusedDay) async {
-            setState(() {
-              _selectedDay = selectedDay;
-              _focusedDay = focusedDay;
-            });
-            //await fetchHoliday(selectedDay);
-            //print(selectedDay);
-            //print(fetchHoliday(_selectedDay));
-            final holidays = await fetchHoliday(selectedDay);
-            setState(() {
-              _holiday = holidays;
-            });
-            print(_holiday);
-          },
-          availableCalendarFormats: {
-            //it wants a label ('Month'; gives me error without one), but it seems any label will do haha
-            CalendarFormat.month: 'Month',
-          },
-          calendarStyle: CalendarStyle(
-              selectedDecoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                //change to square at some point
-                shape: BoxShape.circle,
+              //table calendarr config
+              child: TableCalendar(
+                firstDay: DateTime.utc(2000, 1, 1),
+                lastDay: DateTime.utc(2100, 12, 31),
+                focusedDay: _focusedDay,
+                calendarFormat: _calendarFormat,
+                selectedDayPredicate: (day) {
+                  return isSameDay(_selectedDay, day);
+                },
+                onDaySelected: (selectedDay, focusedDay) async {
+                  setState(() {
+                    _selectedDay = selectedDay;
+                    _focusedDay = focusedDay;
+                  });
+
+                  final holidays = await fetchHoliday(selectedDay);
+                  setState(() {
+                    _holiday = holidays;
+                  });
+                  print(_holiday.length);
+                },
+                availableCalendarFormats: {
+                  CalendarFormat.month: 'Month',
+                },
+                calendarStyle: CalendarStyle(
+                  selectedDecoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    shape: BoxShape.circle,
+                  ),
+                  selectedTextStyle: TextStyle(color: Colors.amber),
+                  todayTextStyle: TextStyle(color: Colors.amber),
+                ),
               ),
+            ),
+          ),
+          Expanded(
+              flex: 1,
+              child: ListView.builder(
+                itemCount: _holiday.length,
+                itemBuilder: (context, index) {
+                  final holiday = _holiday[index];
+                  return ListTile(
+                    title: Text(holiday['name'] ?? 'No name'),
+                    subtitle: Text(holiday['description'] ?? 'No desc'),
+                  );
+                },
+              )),
 
-              //don't think i want to keep the amber color but we shall see
-              //also i think i will put some other textstyles here unless i find a better spot to put them
-              selectedTextStyle: TextStyle(color: Colors.amber),
-              todayTextStyle: TextStyle(color: Colors.amber)),
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.sign_language),
-            label: 'Sign Up',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.join_full),
-            label: 'Sign In',
-          ),
-          BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.github),
-            label: 'Github',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today),
-            label: 'test',
+          //bottomnavigationabar config
+          BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.sign_language),
+                label: 'Sign Up',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.cake),
+                label: 'Holidays',
+              ),
+              BottomNavigationBarItem(
+                icon: FaIcon(FontAwesomeIcons.github),
+                label: 'Github',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.calendar_today),
+                label: 'test',
+              ),
+            ],
+            currentIndex: _currentIndex,
+            onTap: _itemTapped,
           ),
         ],
-        currentIndex: _currentIndex,
-        onTap: _itemTapped,
       ),
     );
   }
 
   void _openURL(urlLink) async {
     const githubLink = 'https://github.com';
-
     Uri uriLink = Uri.parse(urlLink);
     await launchUrl(uriLink);
   }
@@ -169,7 +183,6 @@ class _CalendarPageState extends State<CalendarPage> {
     if (url.statusCode == 200) {
       final Map<String, dynamic> data = json.decode(url.body);
       _holiday = data['response']['holidays'];
-
       return _holiday;
     } else {
       throw Exception('error error in fetchHoliday');
