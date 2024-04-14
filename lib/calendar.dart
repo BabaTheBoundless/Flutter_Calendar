@@ -32,16 +32,19 @@ class _CalendarPageState extends State<CalendarPage> {
   void _itemTapped(int index) {
     setState(() {
       _currentIndex = index;
+
       //Home button
       if (_currentIndex == 0) {
         _openURL('https://theuselessweb.com');
+
         //Calendar button
       } else if (_currentIndex == 1) {
         _openURL('https://www.pro-football-reference.com');
         //Github button
       } else if (_currentIndex == 2) {
-        //test button
         _openURL('https://github.com/BabaTheBoundless/Flutter_Calendar');
+
+        //test button
       } else if (_currentIndex == 3) {
         if (_themeMode == ThemeMode.light) {
           changeTheme(ThemeMode.dark);
@@ -56,6 +59,7 @@ class _CalendarPageState extends State<CalendarPage> {
 
   void changeTheme(ThemeMode themeMode) {
     setState(() {
+      _openURL('https://theuselessweb.com');
       _themeMode = themeMode;
     });
   }
@@ -105,12 +109,12 @@ class _CalendarPageState extends State<CalendarPage> {
         type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: Icon(Icons.sign_language),
+            label: 'Sign Up',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today),
-            label: 'Calendar',
+            icon: Icon(Icons.join_full),
+            label: 'Sign In',
           ),
           BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.github),

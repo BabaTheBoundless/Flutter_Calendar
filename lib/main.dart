@@ -10,6 +10,8 @@ import 'lightVSdark.dart';
 */
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(CalendarApp());
 }
 
