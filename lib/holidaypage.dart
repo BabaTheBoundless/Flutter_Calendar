@@ -60,8 +60,8 @@ class _HolidayPageState extends State<HolidayPage> {
     }
   }
 
-  //only returns the selected day; will be called in calendar.dart
-  Future<void> fetchHoliday(DateTime selectedDay) async {
+  //moved to calendar.dart
+  /*Future<void> fetchHoliday(DateTime selectedDay) async {
     final apiKey = '6ejHzAidPCOiSeD1GyDUsAKSbob0Iwmx';
     final year = selectedDay.year;
     final month = selectedDay.month;
@@ -74,7 +74,7 @@ class _HolidayPageState extends State<HolidayPage> {
       _holiday = data['response']['holidays'];
     });
     print(_holiday);
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {

@@ -98,10 +98,15 @@ class _CalendarPageState extends State<CalendarPage> {
             setState(() {
               _selectedDay = selectedDay;
               _focusedDay = focusedDay;
-              //await fetchHoliday(selectedDay);
-              //print(selectedDay);
-              print(fetchHoliday(_selectedDay));
             });
+            //await fetchHoliday(selectedDay);
+            //print(selectedDay);
+            //print(fetchHoliday(_selectedDay));
+            final holidays = await fetchHoliday(selectedDay);
+            setState(() {
+              _holiday = holidays;
+            });
+            print(_holiday);
           },
           availableCalendarFormats: {
             //it wants a label ('Month'; gives me error without one), but it seems any label will do haha
@@ -153,7 +158,7 @@ class _CalendarPageState extends State<CalendarPage> {
     await launchUrl(uriLink);
   }
 
-  Future<void> fetchHoliday(DateTime selectedDay) async {
+  Future<List<dynamic>> fetchHoliday(DateTime selectedDay) async {
     final apiKey = '6ejHzAidPCOiSeD1GyDUsAKSbob0Iwmx';
     final year = selectedDay.year;
     final month = selectedDay.month;
@@ -161,10 +166,13 @@ class _CalendarPageState extends State<CalendarPage> {
     final url = await http.get(Uri.parse(
         'https://calendarific.com/api/v2/holidays?&api_key=$apiKey&country=US&day=$day&month=$month&year=$year'));
 
-    final Map<String, dynamic> data = json.decode(url.body);
-    setState(() {
+    if (url.statusCode == 200) {
+      final Map<String, dynamic> data = json.decode(url.body);
       _holiday = data['response']['holidays'];
-    });
-    print(_holiday);
+
+      return _holiday;
+    } else {
+      throw Exception('error error in fetchHoliday');
+    }
   }
 }
