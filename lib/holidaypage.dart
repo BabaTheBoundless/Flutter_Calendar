@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -28,17 +30,23 @@ class _HolidayPageState extends State<HolidayPage> {
     final year = DateTime.now().year;
     final country = 'US';
 
-    final url = Uri.parse(
-        'https://calendarific.com/api/v2/holidays?&api_key=$apiKey&country=$country&year=$year');
-    print('yo');
+    /*final url = Uri.parse(
+        'https://calendarific.com/api/v2'); //holidays?&api_key=$apiKey&country=$country&year=$year');
+    print('yo');*/
+
+    final url = await http.get(Uri.parse(
+        'https://calendarific.com/api/v2/holidays?&api_key=$apiKey&country=US&year=2019'));
 
     /* NOTHING BELOW THIS EXECUTES; THIS IS SEEMINGLY THE PROBLEM
     Network connections seems to be fine. Perhaps something is wrong with my apiKey???
-    */
-    final response = await http.get(url);
+    
+    var response = await http.get(url);*/
 
-    if (response.statusCode == 200) {
-      final Map<String, dynamic> data = json.decode(response.body);
+    print('I NEED THIS TO WORK');
+    print(url.statusCode);
+    if (url.statusCode == 200) {
+      //print('ecef');
+      final Map<String, dynamic> data = json.decode(url.body);
       print('DOESITPRINT');
       setState(() {
         _holidays = data['response']['holidays'];
