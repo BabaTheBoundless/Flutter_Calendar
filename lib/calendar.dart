@@ -6,6 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'signuppage.dart';
+import 'holidaypage.dart';
 
 /* need to add some fast way to go through the months and years.
 
@@ -43,7 +44,10 @@ class _CalendarPageState extends State<CalendarPage> {
 
         //Calendar button
       } else if (_currentIndex == 1) {
-        _openURL('https://www.pro-football-reference.com');
+        //_openURL('https://www.pro-football-reference.com');
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => HolidayPage()));
+
         //Github button
       } else if (_currentIndex == 2) {
         _openURL('https://github.com/BabaTheBoundless/Flutter_Calendar');
