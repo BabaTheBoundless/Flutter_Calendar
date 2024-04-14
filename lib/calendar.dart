@@ -5,6 +5,8 @@ import 'package:url_launcher/url_launcher.dart';
 //font icon package i found; should have github logo
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'signuppage.dart';
+
 /* need to add some fast way to go through the months and years.
 
 */
@@ -35,7 +37,9 @@ class _CalendarPageState extends State<CalendarPage> {
 
       //Home button
       if (_currentIndex == 0) {
-        _openURL('https://theuselessweb.com');
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => SignUpPage()));
+        //_openURL('https://theuselessweb.com');
 
         //Calendar button
       } else if (_currentIndex == 1) {
