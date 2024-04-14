@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/rendering.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class SignUpPage extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
@@ -8,6 +8,11 @@ class SignUpPage extends StatelessWidget {
 
   Future<void> _signUp(BuildContext context) async {
     try {
+      if (Firebase.apps.isEmpty) {
+        print('Youre empty');
+        await Firebase.initializeApp();
+      }
+
       UserCredential userCredential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _emailController.text,
@@ -22,7 +27,7 @@ class SignUpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("SIGN UP HERERE"),
+          title: Text("SIGN UP HERE"),
         ),
         body: Padding(
             padding: EdgeInsets.all(16.0),
