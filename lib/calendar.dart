@@ -10,10 +10,12 @@ import 'signuppage.dart';
 import 'holidaypage.dart';
 import 'package:http/http.dart' as http;
 import 'api.dart';
+import 'main.dart';
 
 /* need to add some fast way to go through the months and years.
 
 */
+ThemeMode publicThemeMode = ThemeMode.system;
 
 class CalendarPage extends StatefulWidget {
   @override
@@ -27,7 +29,6 @@ class _CalendarPageState extends State<CalendarPage> {
   late DateTime _selectedDay;
   int _currentIndex = 0;
 
-  ThemeMode _themeMode = ThemeMode.dark;
   @override
   void initState() {
     super.initState();
@@ -59,10 +60,10 @@ class _CalendarPageState extends State<CalendarPage> {
 
         //test button
       } else if (_currentIndex == 3) {
-        if (_themeMode == ThemeMode.light) {
+        if (publicThemeMode == ThemeMode.light) {
           changeTheme(ThemeMode.dark);
           _openURL('https://www.pro-football-reference.com');
-        } else if (_themeMode == ThemeMode.dark) {
+        } else if (publicThemeMode == ThemeMode.dark) {
           changeTheme(ThemeMode.light);
           _openURL('https://github.com/BabaTheBoundless/Flutter_Calendar');
         }
@@ -72,8 +73,8 @@ class _CalendarPageState extends State<CalendarPage> {
 
   void changeTheme(ThemeMode themeMode) {
     setState(() {
-      _openURL('https://theuselessweb.com');
-      _themeMode = themeMode;
+      //_openURL('https://theuselessweb.com');
+      publicThemeMode = themeMode;
     });
   }
 

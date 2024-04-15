@@ -15,18 +15,20 @@ import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  print('initalizing firebase...');
+  /*print('initalizing firebase...');
   try {
     await Firebase.initializeApp();
     print('firebase successful');
   } catch (error) {
     print('firebase initiazlating error: $error');
-  }
+  }*/
 
-  runApp(CalendarApp());
+  runApp(CalendarApp(publicThemeMode));
 }
 
 class CalendarApp extends StatelessWidget {
+  final ThemeMode publicThemeMode;
+  CalendarApp(this.publicThemeMode);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -36,7 +38,7 @@ class CalendarApp extends StatelessWidget {
       darkTheme: ThemeData(
         brightness: Brightness.dark,
       ),
-      themeMode: ThemeMode.system,
+      themeMode: publicThemeMode,
       home: CalendarPage(),
     );
   }
