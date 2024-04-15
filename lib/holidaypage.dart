@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'api.dart';
 
 class HolidayPage extends StatefulWidget {
   @override
@@ -28,7 +29,7 @@ class _HolidayPageState extends State<HolidayPage> {
     } else {
       print('not connected and running');
     }
-    final apiKey = '6ejHzAidPCOiSeD1GyDUsAKSbob0Iwmx';
+    final apiKey = API_KEY;
     final year = DateTime.now().year;
     final country = 'US';
 

@@ -12,7 +12,7 @@ const logger = require("firebase-functions/logger");
 
 
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+//const { initializeApp } = require("firebase/app");
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -29,7 +29,7 @@ const firebaseConfig = {
 
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+//const app = initializeApp(firebaseConfig);
 // Create and deploy your first functions
 // https://firebase.google.com/docs/functions/get-started
 

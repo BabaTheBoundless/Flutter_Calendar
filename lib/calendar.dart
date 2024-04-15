@@ -9,6 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'signuppage.dart';
 import 'holidaypage.dart';
 import 'package:http/http.dart' as http;
+import 'api.dart';
 
 /* need to add some fast way to go through the months and years.
 
@@ -118,8 +119,8 @@ class _CalendarPageState extends State<CalendarPage> {
                     color: Theme.of(context).primaryColor,
                     shape: BoxShape.circle,
                   ),
-                  selectedTextStyle: TextStyle(color: Colors.amber),
-                  todayTextStyle: TextStyle(color: Colors.amber),
+                  selectedTextStyle: TextStyle(color: Colors.white),
+                  todayTextStyle: TextStyle(color: Colors.white),
                 ),
               ),
             ),
@@ -146,7 +147,7 @@ class _CalendarPageState extends State<CalendarPage> {
                 label: 'Sign Up',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.cake),
+                icon: Icon(Icons.party_mode),
                 label: 'Holidays',
               ),
               BottomNavigationBarItem(
@@ -173,7 +174,7 @@ class _CalendarPageState extends State<CalendarPage> {
   }
 
   Future<List<dynamic>> fetchHoliday(DateTime selectedDay) async {
-    final apiKey = '6ejHzAidPCOiSeD1GyDUsAKSbob0Iwmx';
+    final apiKey = API_KEY;
     final year = selectedDay.year;
     final month = selectedDay.month;
     final day = selectedDay.day;
