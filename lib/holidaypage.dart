@@ -61,22 +61,6 @@ class _HolidayPageState extends State<HolidayPage> {
     }
   }
 
-  //moved to calendar.dart
-  /*Future<void> fetchHoliday(DateTime selectedDay) async {
-    final apiKey = '6ejHzAidPCOiSeD1GyDUsAKSbob0Iwmx';
-    final year = selectedDay.year;
-    final month = selectedDay.month;
-    final day = selectedDay.day;
-    final url = await http.get(Uri.parse(
-        'https://calendarific.com/api/v2/holidays?&api_key=$apiKey&country=US&day=$day&month=$month&year=$year'));
-
-    final Map<String, dynamic> data = json.decode(url.body);
-    setState(() {
-      _holiday = data['response']['holidays'];
-    });
-    print(_holiday);
-  }*/
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
